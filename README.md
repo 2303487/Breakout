@@ -2,6 +2,10 @@
 
 W Kavanagh & N Merchant. Summer 2024 
 
+
+Keiran Clark 2303487
+
+
 ## controls
 
 A/D to move the paddle right and left.
@@ -17,10 +21,12 @@ fire ball (green)
 
 ## Suggested fixes
 
-* Fix the compiler issues in the code
+* Fix the compiler issues in the code, Done
 
 ## Suggested tasks
 
+
+If Time Implement these
 * Implement mouse input for pad
 * Improved VFX (ball trail, paddle hit response, brick particle destruction)
 * Better UI (progress bar rather than timer for countdown).
