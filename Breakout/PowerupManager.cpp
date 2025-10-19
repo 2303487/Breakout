@@ -1,5 +1,12 @@
 #include "PowerupManager.h"
+#include "PowerupBase.h"
+#include <cstdlib>
 
+#include "PowerupBigPaddle.h"
+#include "PowerupSmallPaddle.h"
+#include "PowerupSlowBall.h"
+#include "PowerupFastBall.h"
+#include "PowerupFireBall.h"
 
 PowerupManager::PowerupManager(sf::RenderWindow* window, Paddle* paddle, Ball* ball)
     : _window(window), _paddle(paddle), _ball(ball)
@@ -8,10 +15,6 @@ PowerupManager::PowerupManager(sf::RenderWindow* window, Paddle* paddle, Ball* b
 
 PowerupManager::~PowerupManager()
 {
-    for (auto powerup : _powerups)
-    {
-        delete powerup;
-    }
     _powerups.clear();
 }
 
@@ -27,16 +30,13 @@ void PowerupManager::update(float dt)
         }
     }
 
+    checkCollision();
 
     for (auto it = _powerups.begin(); it != _powerups.end(); )
     {
-        checkCollision();
-        
-        // Delete powerups queued for removal
         (*it)->update(dt);
         if (!(*it)->isAlive())
         {
-            delete* it;
             it = _powerups.erase(it);
         }
         else
@@ -58,25 +58,25 @@ void PowerupManager::spawnPowerup()
 {
 
     // TODO finish this.
-    switch (rand() % 5)
+    switch (rand() % 6)
     {
     case 0:
-        _powerups.push_back(new PowerupBigPaddle(_window, _paddle, _ball));
+        _powerups.push_back(std::make_unique<PowerupBigPaddle>(_window, _paddle, _ball));
         break;
     case 1:
-        _powerups.push_back(new PowerupSlowBall(_window, _paddle, _ball));
+        _powerups.push_back(std::make_unique<PowerupSlowBall>(_window, _paddle, _ball));
         break;
     case 2:
-        _powerups.push_back(new PowerupFastBall(_window, _paddle, _ball));
+        _powerups.push_back(std::make_unique<PowerupFastBall>(_window, _paddle, _ball));
         break;
     case 3:
-        _powerups.push_back(new PowerupSmallPaddle(_window, _paddle, _ball));
+        _powerups.push_back(std::make_unique<PowerupSmallPaddle>(_window, _paddle, _ball));
         break;
     case 4:
-        _powerups.push_back(new PowerupFireBall(_window, _paddle, _ball));
+        _powerups.push_back(std::make_unique<PowerupFireBall>(_window, _paddle, _ball));
         break;
     case 5:
-       break;
+        break;
     }
 
 }

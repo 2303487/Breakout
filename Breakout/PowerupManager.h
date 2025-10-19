@@ -3,12 +3,13 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <optional>
+#include <memory>
 #include "PowerupBase.h"
-#include "PowerupBigPaddle.h"
-#include "PowerupSmallPaddle.h"
-#include "PowerupSlowBall.h"
-#include "PowerupFastBall.h"
-#include "PowerupFireBall.h"
+//#include "PowerupBigPaddle.h"
+//#include "PowerupSmallPaddle.h"
+//#include "PowerupSlowBall.h"
+//#include "PowerupFastBall.h"
+//#include "PowerupFireBall.h"
 #include "Paddle.h"
 #include "Ball.h"
 
@@ -30,6 +31,6 @@ private:
     sf::RenderWindow* _window;
     Paddle* _paddle;
     Ball* _ball;
-    std::vector<PowerupBase*> _powerups;            // used to manage deletion.
+    std::vector<std::unique_ptr<PowerupBase>> _powerups;           // used to manage deletion.
     std::optional<std::pair<POWERUPS, float>> _powerupInEffect;    // used for gameManager to get reference.
 };
